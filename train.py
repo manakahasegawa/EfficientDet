@@ -112,6 +112,7 @@ def create_callbacks(training_model, prediction_model, validation_generator, arg
             ),
             verbose=1,
             save_weights_only=True,
+            save_format='tf'
             # save_best_only=True,
             # monitor="mAP",
             # mode='max'
