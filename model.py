@@ -348,7 +348,11 @@ class BoxNet(models.Model):
         feature, level = inputs
         for i in range(self.depth):
             feature = self.convs[i](feature)
-            feature = self.bns[i][self.level](feature)
+            # if文、else文を付け足し
+            if self.level >= len(self.bns[i]):
+              self.level -= 1
+            else:
+              feature = self.bns[i][self.level](feature)
             feature = self.relu(feature)
         outputs = self.head(feature)
         outputs = self.reshape(outputs)
@@ -402,12 +406,16 @@ class ClassNet(models.Model):
         self.reshape = layers.Reshape((-1, num_classes))
         self.activation = layers.Activation('sigmoid')
         self.level = 0
-
+        
     def call(self, inputs, **kwargs):
         feature, level = inputs
         for i in range(self.depth):
             feature = self.convs[i](feature)
-            feature = self.bns[i][self.level](feature)
+            # if文、else文を付け足し
+            if self.level >= len(self.bns[i]):
+              self.level -= 1
+            else:
+              feature = self.bns[i][self.level](feature)
             feature = self.relu(feature)
         outputs = self.head(feature)
         outputs = self.reshape(outputs)
