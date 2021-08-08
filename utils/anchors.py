@@ -2,6 +2,9 @@
 import numpy as np
 from tensorflow import keras
 
+import pyximport
+pyximport.install()
+
 from utils.compute_overlap import compute_overlap
 
 
